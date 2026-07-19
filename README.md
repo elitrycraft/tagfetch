@@ -11,10 +11,6 @@
       <p><b>Windows 2</b></p>
     </div>
     <div>
-      <img src="images/windows.png" width="350">
-      <p><b>Windows</b></p>
-    </div>
-    <div>
       <img src="images/linux.png" width="350">
       <p><b>Linux</b></p>
     </div>
