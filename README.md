@@ -7,9 +7,9 @@
     <img alt="Releases" src="https://img.shields.io/github/release/elitrycraft/tagfetch.svg?style=for-the-badge&logo=semantic-release&color=f5bde6&logoColor=D9E0EE&labelColor=302D41"/></a>
     <h2>Screenshots</h2>
     <div style="display: flex; gap: 20px; justify-content: center;">
-      <img src="images/windows2.png" width="100">
-      <img src="images/linux.png" width="100">
-      <img src="images/linux_icon.png" width="100">
-      <img src="images/hashtag_icon.png" width="100">
+      <img src="images/windows2.png" width="250">
+      <img src="images/linux.png" width="250">
+      <img src="images/linux_icon.png" width="250">
+      <img src="images/hashtag_icon.png" width="250">
     </div>
 </div>
