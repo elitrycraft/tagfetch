@@ -18,16 +18,16 @@
 <span style="color: #58a6ff;">$</span> tagfetch
 
 <span style="color: #8b949e;"># Show system info with Linux theme</span>
-<span style="color: #58a6ff;">$</span> tagfetch <span style="color: #ffa657;">linux</span>
+<span style="color: #58a6ff;">$</span> tagfetch <span style="color: #ffa657;">Linux</span>
 
 <span style="color: #8b949e;"># Show system info with Hashtag theme</span>
-<span style="color: #58a6ff;">$</span> tagfetch <span style="color: #ffa657;">hashtag</span>
+<span style="color: #58a6ff;">$</span> tagfetch <span style="color: #ffa657;">Hashtag</span>
 
 <span style="color: #8b949e;"># Show system info with Windows theme</span>
-<span style="color: #58a6ff;">$</span> tagfetch <span style="color: #ffa657;">windows</span>
+<span style="color: #58a6ff;">$</span> tagfetch <span style="color: #ffa657;">Windows</span>
 
 <span style="color: #8b949e;"># Show system info with macOS theme</span>
-<span style="color: #58a6ff;">$</span> tagfetch <span style="color: #ffa657;">darwin</span>
+<span style="color: #58a6ff;">$</span> tagfetch <span style="color: #ffa657;">Darwin</span>
 </code>
 </pre>
   </pre>
