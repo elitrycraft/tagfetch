@@ -30,25 +30,12 @@
 </code>
   </pre>
 
-  <h2>Screenshots</h2>
-
-  <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-    <div>
-      <img src="images/windows2.png" width="300" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-      <p><b>Windows 2</b></p>
-    </div>
-    <div>
-      <img src="images/linux.png" width="300" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-      <p><b>Linux 🐧</b></p>
-    </div>
-    <div>
-      <img src="images/linux_icon.png" width="300" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-      <p><b>Linux Icon</b></p>
-    </div>
-    <div>
-      <img src="images/hashtag_icon.png" width="300" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-      <p><b>Hashtag #</b></p>
-    </div>
+  <h2>Screenshots: </h2>
+  <div style="display: flex; gap: 20px; justify-content: center;">
+    <img src="images/windows2.png" width="300">
+    <img src="images/linux.png" width="300">
+    <img src="images/linux_icon.png" width="300">
+    <img src="images/hashtag_icon.png" width="300">
   </div>
 
   <br>
