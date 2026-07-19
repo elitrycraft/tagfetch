@@ -8,16 +8,16 @@
     <h2>Screenshots</h2>
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
       <div>
-        <img src="images/windows2.png" width="350">
+        <img src="images/windows2.png" width="100">
       </div>
       <div>
-        <img src="images/linux.png" width="350">
+        <img src="images/linux.png" width="100">
       </div>
       <div>
-        <img src="images/linux_icon.png" width="350">
+        <img src="images/linux_icon.png" width="100">
       </div>
       <div>
-        <img src="images/hashtag_icon.png" width="350">
+        <img src="images/hashtag_icon.png" width="100">
       </div>
     </div>
 </div>
