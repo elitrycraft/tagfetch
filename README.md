@@ -9,7 +9,7 @@
     <img alt="Releases" src="https://img.shields.io/github/release/elitrycraft/tagfetch.svg?style=for-the-badge&logo=semantic-release&color=f5bde6&logoColor=D9E0EE&labelColor=302D41">
   </a>
 
-  <h2>🚀 How to use</h2>
+  <h2>How to use: </h2>
 
   <pre style="background: #1e1e2e; color: #cdd6f4; padding: 20px 24px; border-radius: 12px; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.8; text-align: left; display: inline-block; border: 1px solid #313244;">
 <code>
@@ -30,6 +30,8 @@
 </code>
   </pre>
 
+  <h2>How to build: </h2>
+  <pre><code>pyinstaller TagFetch.spec</code></pre>
   <h2>Screenshots: </h2>
   <div style="display: flex; gap: 20px; justify-content: center;">
     <img src="images/windows2.png" width="300">
@@ -37,6 +39,5 @@
     <img src="images/linux_icon.png" width="300">
     <img src="images/hashtag_icon.png" width="300">
   </div>
-
   <br>
 </div>
