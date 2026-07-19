@@ -13,24 +13,24 @@
 
   <pre style="background: #1e1e2e; color: #cdd6f4; padding: 20px 24px; border-radius: 12px; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.8; text-align: left; display: inline-block; border: 1px solid #313244;">
 <code>
-<span style="color: #89b4fa;">#</span> <span style="color: #6c7086;">Show system info with default theme</span>
+<span style="color: #89b4fa;">#</span> <span style="color: #6c7086;">Show system info with default icon</span>
 <span style="color: #a6e3a1;">$</span> tagfetch
 
-<span style="color: #89b4fa;">#</span> <span style="color: #6c7086;">Show system info with Linux 🐧 theme</span>
-<span style="color: #a6e3a1;">$</span> tagfetch <span style="color: #f9e2af;">linux</span>
+<span style="color: #89b4fa;">#</span> <span style="color: #6c7086;">Show system info with Linux icon</span>
+<span style="color: #a6e3a1;">$</span> tagfetch <span style="color: #f9e2af;">Linux</span>
 
-<span style="color: #89b4fa;">#</span> <span style="color: #6c7086;">Show system info with Hashtag # theme</span>
-<span style="color: #a6e3a1;">$</span> tagfetch <span style="color: #f9e2af;">hashtag</span>
+<span style="color: #89b4fa;">#</span> <span style="color: #6c7086;">Show system info with Hashtag icon</span>
+<span style="color: #a6e3a1;">$</span> tagfetch <span style="color: #f9e2af;">Hashtag</span>
 
-<span style="color: #89b4fa;">#</span> <span style="color: #6c7086;">Show system info with Windows 🪟 theme</span>
-<span style="color: #a6e3a1;">$</span> tagfetch <span style="color: #f9e2af;">windows</span>
+<span style="color: #89b4fa;">#</span> <span style="color: #6c7086;">Show system info with Windows icon</span>
+<span style="color: #a6e3a1;">$</span> tagfetch <span style="color: #f9e2af;">Windows</span>
 
-<span style="color: #89b4fa;">#</span> <span style="color: #6c7086;">Show system info with macOS 🍎 theme</span>
-<span style="color: #a6e3a1;">$</span> tagfetch <span style="color: #f9e2af;">darwin</span>
+<span style="color: #89b4fa;">#</span> <span style="color: #6c7086;">Show system info with macOS icon</span>
+<span style="color: #a6e3a1;">$</span> tagfetch <span style="color: #f9e2af;">Darwin</span>
 </code>
   </pre>
 
-  <h2>📸 Screenshots</h2>
+  <h2>Screenshots</h2>
 
   <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
     <div>
