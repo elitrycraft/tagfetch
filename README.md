@@ -6,9 +6,24 @@
     <a href="https://github.com/elitrycraft/tagfetch/releases/latest">
     <img alt="Releases" src="https://img.shields.io/github/release/elitrycraft/tagfetch.svg?style=for-the-badge&logo=semantic-release&color=f5bde6&logoColor=D9E0EE&labelColor=302D41"/></a>
     <h2>Screenshots</h2>
-    ![windows2](images/windows2.png)
-    ![windows](images/windows.png)
-    ![linux](images/linux.png)
-    ![linux_icon](images/linux_icon.png)
-    ![hashtag_icon](images/hashtag_icon.png)
+    <div>
+      <img src="images/windows2.png" width="350">
+      <p><b>Windows 2</b></p>
+    </div>
+    <div>
+      <img src="images/windows.png" width="350">
+      <p><b>Windows</b></p>
+    </div>
+    <div>
+      <img src="images/linux.png" width="350">
+      <p><b>Linux</b></p>
+    </div>
+    <div>
+      <img src="images/linux_icon.png" width="350">
+      <p><b>Linux Icon</b></p>
+    </div>
+    <div>
+      <img src="images/hashtag_icon.png" width="350">
+      <p><b>Hashtag</b></p>
+    </div>
 </div>
