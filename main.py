@@ -6,7 +6,11 @@ mem = psutil.virtual_memory()
 init()
 
 def get_uptime():
-    return time.time() - psutil.boot_time()
+    try:
+        return time.time() - psutil.boot_time()
+    except:
+        pass
+        return 0
 
 def format_uptime(seconds):
     if seconds < 60:
