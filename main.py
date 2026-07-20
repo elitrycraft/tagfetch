@@ -133,7 +133,7 @@ def get_gpu():
             return out.split(':')[1].strip() if out else 'unknown'
     except:
         pass
-        return 'unknown'
+    return 'unknown'
 
 def get_cpu():
     try:
