@@ -132,6 +132,7 @@ def get_gpu():
             out = subprocess.check_output('lspci | grep -E "VGA|3D"', shell=True, text=True)
             return out.split(':')[1].strip() if out else 'unknown'
     except:
+        pass
         return 'unknown'
 
 def get_cpu():
