@@ -42,4 +42,8 @@
     <img src="images/hashtag_icon.png" width="300">
   </div>
   <br>
+  <h2>How to install: </h3>
+  <h3>Linux: </h3>
+  <p>curl https://raw.githubusercontent.com/elitrycraft/tagfetch/r
+efs/heads/main/get.sh | bash</p>
 </div>
