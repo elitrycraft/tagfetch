@@ -311,16 +311,16 @@ packages = str(get_package_count())
 username = os.getenv('USER') or os.getenv('USERNAME') or 'unknown'
 hostname = socket.gethostname() or 'localhost'
 
-mem = psutil.virtual_memory() or "Unkown"
-operating_system = platform.platform() or "Unkown"
-kernel = platform.uname().version or "Unkown"
-uptime = format_uptime(get_uptime()) or "Unkown"
-pkg_or_prg = packages_or_programs() or "Unkown"
-shell = get_shell_version() or "Unkown"
-screen = get_screen_resolution() or "Unkown"
-cpu = get_cpu() or "Unkown"
-cpu_count = psutil.cpu_count(logical=False) or "Unkown"
-gpu = get_gpu() or "Unkown"
+mem = psutil.virtual_memory() or "Unknown"
+operating_system = platform.platform() or "Unknown"
+kernel = platform.uname().version or "Unknown"
+uptime = format_uptime(get_uptime()) or "Unknown"
+pkg_or_prg = packages_or_programs() or "Unknown"
+shell = get_shell_version() or "Unknown"
+screen = get_screen_resolution() or "Unknown"
+cpu = get_cpu() or "Unknown"
+cpu_count = psutil.cpu_count(logical=False) or "Unknown"
+gpu = get_gpu() or "Unknown"
 
 print(target.split('\n')[0] + "            " + Fore.RED + username + Fore.GREEN + "@" + Fore.RED + hostname)
 print(target.split('\n')[1] +  "            " + Fore.WHITE + "-"*len(username + "@" + hostname))
