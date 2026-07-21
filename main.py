@@ -1,7 +1,7 @@
 from colorama import Fore, Back, Style, init
-import os, socket, time, platform, psutil, subprocess, sys
+import os, socket, time, platform, psutil, subprocess, sys, multiprocessing
 
-mem = psutil.virtual_memory()
+version = "1.0.3"
 
 init()
 
@@ -192,6 +192,25 @@ windows = f"""{Fore.CYAN}                           ....iilll
 {Fore.CYAN}       ````^^^^  ^^lllllllllllllllll
 {Fore.CYAN}                      ````^^^^^^llll"""
 
+windows_eleven = f"""{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}                                            
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}   lllllllllllllllllll   lllllllllllllllllll
+{Fore.CYAN}
+{Fore.CYAN}                                            """
+
 linux = rf"""{Style.RESET_ALL}         _nnnn_        
 {Style.RESET_ALL}        dGGGGMMb       
 {Style.RESET_ALL}       @p~qp~~qMb      
@@ -250,7 +269,9 @@ hashtag = rf"""
 """
 
 if len(sys.argv) < 2 or not sys.argv[1]:
-    if platform.system() == "Windows":
+    if platform.system() == "Windows" and platform.version().startswith("10.0.22"):
+        target = windows_eleven
+    elif platform.system() == "Windows" and platform.version().startswith("10.0.19"):
         target = windows
     elif platform.system() == "Linux":
         target = linux
@@ -259,16 +280,22 @@ if len(sys.argv) < 2 or not sys.argv[1]:
     else:
         target = hashtag
 else:
-    if sys.argv[1] == "Windows":
+    if sys.argv[1].lower() == "windows":
         target = windows
-    elif sys.argv[1] == "Linux":
+    if sys.argv[1].lower() == "windows10":
+        target = windows
+    elif sys.argv[1].lower() == "windows11":
+        target = windows_eleven
+    elif sys.argv[1].lower() == "linux":
         target = linux
-    elif sys.argv[1] == "Darwin":
+    elif sys.argv[1].lower() == "darwin":
         target = apple
-    elif sys.argv[1] == "Hashtag":
+    elif sys.argv[1].lower() == "hashtag":
         target = hashtag
     else:
-        if platform.system() == "Windows":
+        if platform.system() == "Windows" and platform.version().startswith("10.0.22"):
+            target = windows_eleven
+        elif platform.system() == "Windows" and platform.version().startswith("10.0.19"):
             target = windows
         elif platform.system() == "Linux":
             target = linux
@@ -284,30 +311,31 @@ packages = str(get_package_count())
 username = os.getenv('USER') or os.getenv('USERNAME') or 'unknown'
 hostname = socket.gethostname() or 'localhost'
 
-youros = platform.platform()
-kernel = platform.uname().version
-uptime = format_uptime(get_uptime())
-pkg_or_prg = packages_or_programs()
-shell = get_shell_version()
-screen = get_screen_resolution()
-cpu = get_cpu()
-gpu = get_gpu()
+mem = psutil.virtual_memory() or "Unkown"
+operating_system = platform.platform() or "Unkown"
+kernel = platform.uname().version or "Unkown"
+uptime = format_uptime(get_uptime()) or "Unkown"
+pkg_or_prg = packages_or_programs() or "Unkown"
+shell = get_shell_version() or "Unkown"
+screen = get_screen_resolution() or "Unkown"
+cpu = get_cpu() or "Unkown"
+cpu_count = psutil.cpu_count(logical=False) or "Unkown"
+gpu = get_gpu() or "Unkown"
 
 print(target.split('\n')[0] + "            " + Fore.RED + username + Fore.GREEN + "@" + Fore.RED + hostname)
 print(target.split('\n')[1] +  "            " + Fore.WHITE + "-"*len(username + "@" + hostname))
-print(target.split('\n')[2] +  "            " + Fore.RED + f"OS{Fore.GREEN}: " + youros)
+print(target.split('\n')[2] +  "            " + Fore.RED + f"OS{Fore.GREEN}: " + operating_system)
 print(target.split('\n')[3] +  "            " + Fore.RED + f"Kernel{Fore.GREEN}: " + kernel)
 print(target.split('\n')[4] +  "            " + Fore.RED + f"Uptime{Fore.GREEN}: " + uptime)
 print(target.split('\n')[5] +  "            " + Fore.RED + f"{pkg_or_prg}{Fore.GREEN}: " + packages)
 print(target.split('\n')[6] +  "            " + Fore.RED + f"Shell{Fore.GREEN}: " + shell)
 print(target.split('\n')[7] +  "            " + Fore.RED + f"Resolution{Fore.GREEN}: " + f"{screen[0]}x{screen[1]}")
-print(target.split('\n')[8] +  "            " + Fore.RED + f"CPU{Fore.GREEN}: " + cpu)
-print(target.split('\n')[9] +  "            " + Fore.RED + f"GPU{Fore.GREEN}: " + gpu) # type: ignore
+print(target.split('\n')[8] +  "            " + Fore.RED + f"CPU{Fore.GREEN}: " + cpu + f"{Fore.RED}({Fore.GREEN}{cpu_count}{Fore.RED})")
+print(target.split('\n')[9] +  "            " + Fore.RED + f"GPU{Fore.GREEN}: " + gpu)
 print(target.split('\n')[10] +  "            " + Fore.RED + f"Memory{Fore.GREEN}: " + f"{mem.available // (1024**2)}MB / {mem.total // (1024**2)}MB")
-print(target.split('\n')[11])
-print(target.split('\n')[12] + "           " + Back.BLACK + "   " + Back.RED + "   " + Back.GREEN + "   " + Back.YELLOW + "   " + Back.BLUE + "   " + Back.MAGENTA + "   " + Back.CYAN + "   " + Back.WHITE + "   " + Style.RESET_ALL)
-print(target.split('\n')[13] + r"           " + Back.LIGHTBLACK_EX + "   " + Back.LIGHTRED_EX + "   " + Back.LIGHTGREEN_EX + "   " + Back.LIGHTYELLOW_EX + "   " + Back.LIGHTBLUE_EX + "   " + Back.LIGHTMAGENTA_EX + "   " + Back.LIGHTCYAN_EX + "   " + Back.LIGHTWHITE_EX + "   " + Style.RESET_ALL)
-print(target.split('\n')[14])
-print(target.split('\n')[15])
+print(target.split('\n')[11] + "            " + Fore.RED + f"TagFetch Version{Fore.GREEN}: " + version)
+print(target.split('\n')[13])
+print(target.split('\n')[14] + "           " + Back.BLACK + "   " + Back.RED + "   " + Back.GREEN + "   " + Back.YELLOW + "   " + Back.BLUE + "   " + Back.MAGENTA + "   " + Back.CYAN + "   " + Back.WHITE + "   " + Style.RESET_ALL)
+print(target.split('\n')[15] + r"           " + Back.LIGHTBLACK_EX + "   " + Back.LIGHTRED_EX + "   " + Back.LIGHTGREEN_EX + "   " + Back.LIGHTYELLOW_EX + "   " + Back.LIGHTBLUE_EX + "   " + Back.LIGHTMAGENTA_EX + "   " + Back.LIGHTCYAN_EX + "   " + Back.LIGHTWHITE_EX + "   " + Style.RESET_ALL)
 print(target.split('\n')[16])
 print(target.split('\n')[17])
