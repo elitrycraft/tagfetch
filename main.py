@@ -35,8 +35,23 @@ def get_package_count():
     system = platform.system()
     try:
         if system == 'Windows':
-            output = subprocess.check_output(['winget', 'list'], encoding='utf-8', errors='ignore')
-            return len([line for line in output.splitlines() if ' ' in line and '---' not in line]) - 1
+            import winreg
+            programs = []
+            for hive in [winreg.HKEY_LOCAL_MACHINE, winreg.HKEY_CURRENT_USER]:
+                for key_path in [r'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall',
+                                r'SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall']:
+                    try:
+                        key = winreg.OpenKey(hive, key_path)
+                        for i in range(winreg.QueryInfoKey(key)[0]):
+                            try:
+                                subkey = winreg.OpenKey(key, winreg.EnumKey(key, i))
+                                name = winreg.QueryValueEx(subkey, 'DisplayName')[0]
+                                programs.append(name)
+                            except:
+                                pass
+                        return len(programs)
+                    except:
+                        pass
         elif system == 'Linux':
             output = subprocess.check_output(['dpkg', '-l'], text=True)
             return len([line for line in output.splitlines() if line.startswith('ii')])
@@ -47,14 +62,16 @@ def get_shell_version():
     system = platform.system()
     try:
         if system == 'Windows':
+            import winreg
             if 'WT_SESSION' in os.environ:
                 shell_name = 'wt'
-            elif 'VSCODE_TERM' in os.environ:
+                ver = platform.version()
+            elif 'TERM_PROGRAM' in os.environ and os.environ['TERM_PROGRAM'] == 'vscode':
                 shell_name = 'vscode'
+                ver = platform.version()
             else:
                 shell_name = 'cmd'
-            
-            ver = platform.version()
+                ver = platform.version()
             return f"{shell_name} {ver}"
         
         elif system == 'Linux':
@@ -267,16 +284,25 @@ packages = str(get_package_count())
 username = os.getenv('USER') or os.getenv('USERNAME') or 'unknown'
 hostname = socket.gethostname() or 'localhost'
 
+youros = platform.platform()
+kernel = platform.uname().version
+uptime = format_uptime(get_uptime())
+pkg_or_prg = packages_or_programs()
+shell = get_shell_version()
+screen = get_screen_resolution()
+cpu = get_cpu()
+gpu = get_gpu()
+
 print(target.split('\n')[0] + "            " + Fore.RED + username + Fore.GREEN + "@" + Fore.RED + hostname)
 print(target.split('\n')[1] +  "            " + Fore.WHITE + "-"*len(username + "@" + hostname))
-print(target.split('\n')[2] +  "            " + Fore.RED + f"OS{Fore.GREEN}: " + platform.platform())
-print(target.split('\n')[3] +  "            " + Fore.RED + f"Kernel{Fore.GREEN}: " + platform.uname().version)
-print(target.split('\n')[4] +  "            " + Fore.RED + f"Uptime{Fore.GREEN}: " + format_uptime(get_uptime()))
-print(target.split('\n')[5] +  "            " + Fore.RED + f"{packages_or_programs()}{Fore.GREEN}: " + packages)
-print(target.split('\n')[6] +  "            " + Fore.RED + f"Shell{Fore.GREEN}: " + get_shell_version())
-print(target.split('\n')[7] +  "            " + Fore.RED + f"Resolution{Fore.GREEN}: " + f"{get_screen_resolution()[0]}x{get_screen_resolution()[1]}")
-print(target.split('\n')[8] +  "            " + Fore.RED + f"CPU{Fore.GREEN}: " + get_cpu())
-print(target.split('\n')[9] +  "            " + Fore.RED + f"GPU{Fore.GREEN}: " + get_gpu())
+print(target.split('\n')[2] +  "            " + Fore.RED + f"OS{Fore.GREEN}: " + youros)
+print(target.split('\n')[3] +  "            " + Fore.RED + f"Kernel{Fore.GREEN}: " + kernel)
+print(target.split('\n')[4] +  "            " + Fore.RED + f"Uptime{Fore.GREEN}: " + uptime)
+print(target.split('\n')[5] +  "            " + Fore.RED + f"{pkg_or_prg}{Fore.GREEN}: " + packages)
+print(target.split('\n')[6] +  "            " + Fore.RED + f"Shell{Fore.GREEN}: " + shell)
+print(target.split('\n')[7] +  "            " + Fore.RED + f"Resolution{Fore.GREEN}: " + f"{screen[0]}x{screen[1]}")
+print(target.split('\n')[8] +  "            " + Fore.RED + f"CPU{Fore.GREEN}: " + cpu)
+print(target.split('\n')[9] +  "            " + Fore.RED + f"GPU{Fore.GREEN}: " + gpu) # type: ignore
 print(target.split('\n')[10] +  "            " + Fore.RED + f"Memory{Fore.GREEN}: " + f"{mem.available // (1024**2)}MB / {mem.total // (1024**2)}MB")
 print(target.split('\n')[11])
 print(target.split('\n')[12] + "           " + Back.BLACK + "   " + Back.RED + "   " + Back.GREEN + "   " + Back.YELLOW + "   " + Back.BLUE + "   " + Back.MAGENTA + "   " + Back.CYAN + "   " + Back.WHITE + "   " + Style.RESET_ALL)
