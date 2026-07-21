@@ -44,6 +44,5 @@
   <br>
   <h2>How to install: </h3>
   <h3>Linux: </h3>
-  <pre><code>curl https://raw.githubusercontent.com/elitrycraft/tagfetch/r
-efs/heads/main/get.sh | bash</code></pre>
+  <pre><code>curl https://raw.githubusercontent.com/elitrycraft/tagfetch/refs/heads/main/get.sh | bash</code></pre>
 </div>
