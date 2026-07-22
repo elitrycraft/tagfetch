@@ -9,7 +9,7 @@ if [[ "$ARCH" == "x86_64" ]]; then
     URL="https://github.com/elitrycraft/tagfetch/releases/download/1.0.3R/$BINARY"
 elif [[ "$ARCH" == "aarch64" || "$ARCH" == "arm64" ]]; then
     BINARY="TagFetch_linux_arm64"
-    URL="https://github.com/elitrycraft/tagfetch/releases/download/1.0.1R/$BINARY"
+    URL="https://github.com/elitrycraft/tagfetch/releases/download/1.0.3R_ARM/$BINARY"
 else
     echo "Unsupported architecture: $ARCH"
     exit 1
