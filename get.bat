@@ -14,8 +14,6 @@ if %errorlevel% neq 0 (
 :: detect arch
 if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
     set "file=tagfetch_windows_x86_64.exe"
-) else if "%PROCESSOR_ARCHITECTURE%"=="ARM64" (
-    set "file=tagfetch_windows_arm64.exe"
 ) else (
     echo Unsupported arch: %PROCESSOR_ARCHITECTURE%
     exit /b 1
