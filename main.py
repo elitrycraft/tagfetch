@@ -264,12 +264,14 @@ hashtag = rf"""
 {Style.RESET_ALL}     #::::#    #::::#     
 {Style.RESET_ALL}     #::::#    #::::#     
 {Style.RESET_ALL}     ######    ######     
-
-
+{Style.RESET_ALL}                          
+{Style.RESET_ALL}                          
 """
 
 if len(sys.argv) < 2 or not sys.argv[1]:
     if platform.system() == "Windows" and platform.version().startswith("10.0.22"):
+        target = windows_eleven
+    elif platform.system() == "Windows" and platform.version().startswith("10.0.26"):
         target = windows_eleven
     elif platform.system() == "Windows" and platform.version().startswith("10.0.19"):
         target = windows
