@@ -4,13 +4,9 @@ setlocal enabledelayedexpansion
 :: check admin
 net session >nul 2>&1
 if %errorlevel% neq 0 (
-    set "scope=User"
-    set "dest=%LOCALAPPDATA%\TagFetch"
-    echo Installing for user (Without Admin Privilege)
-) else (
-    set "scope=Machine"
-    set "dest=%ProgramFiles%\TagFetch"
-    echo Installing for machine (With Admin Privilege)
+    echo Requesting administrator privileges...
+    powershell -Command "Start-Process '%~f0' -Verb RunAs"
+    exit /b
 )
 
 :: detect arch
