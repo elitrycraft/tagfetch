@@ -14,6 +14,8 @@ if %errorlevel% neq 0 (
 :: detect arch
 if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
     set "file=tagfetch_windows_x86_64.exe"
+) else if "%PROCESSOR_ARCHITECTURE%"=="ARM64" (
+    set "file=tagfetch_windows_arm64.exe"
 ) else (
     echo Unsupported arch: %PROCESSOR_ARCHITECTURE%
     exit /b 1
@@ -30,12 +32,15 @@ if "%url%"=="" (
     exit /b 1
 )
 
-:: download using PowerShell
+:: download
 echo Downloading %file%...
-powershell -noprofile -command "Invoke-WebRequest -Uri '%url%' -OutFile '%dest%\tagfetch.exe'" >nul
+curl -sfL "%url%" -o "%dest%\tagfetch.exe" 2>nul
 if %errorlevel% neq 0 (
-    echo Download failed
-    exit /b 1
+    powershell -command "Invoke-WebRequest -Uri '%url%' -OutFile '%dest%\tagfetch.exe'" >nul
+    if !errorlevel! neq 0 (
+        echo Download failed
+        exit /b 1
+    )
 )
 
 echo Adding to PATH
