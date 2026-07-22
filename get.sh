@@ -19,11 +19,13 @@ echo "Detected: $ARCH"
 echo "Installing TagFetch for Linux..."
 
 if command -v wget &> /dev/null; then
+    echo "Using wget for download..."
     sudo wget -q --show-progress -O "/usr/bin/tagfetch" "$URL"
 elif command -v curl &> /dev/null; then
+    echo "Using curl for download..."
     sudo curl -L --progress-bar -o "/usr/bin/tagfetch" "$URL"
 else
-    echo "Neither wget or curl is installed. Please install one of them."
+    echo "Neither wget nor curl is installed. Please install one of them."
     exit 1
 fi
 
