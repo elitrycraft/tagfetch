@@ -30,7 +30,7 @@ if "%url%"=="" (
     exit /b 1
 )
 
-:: download using PowerShell (убрали curl)
+:: download using PowerShell
 echo Downloading %file%...
 powershell -noprofile -command "Invoke-WebRequest -Uri '%url%' -OutFile '%dest%\tagfetch.exe'" >nul
 if %errorlevel% neq 0 (
@@ -39,7 +39,7 @@ if %errorlevel% neq 0 (
 )
 
 echo Adding to PATH
-:: add to PATH (экранируем путь для PowerShell)
+:: add to PATH
 for /f "delims=" %%p in ('powershell -command "[Environment]::GetEnvironmentVariable('Path','%scope%')"') do set "curpath=%%p"
 echo %curpath% | find /I "%dest%" >nul
 if %errorlevel% neq 0 (
