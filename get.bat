@@ -6,13 +6,16 @@ net session >nul 2>&1
 if %errorlevel% neq 0 (
     set "scope=User"
     set "dest=%LOCALAPPDATA%\TagFetch"
+    echo Installing for user (Without Admin Privilege)
 ) else (
     set "scope=Machine"
     set "dest=%ProgramFiles%\TagFetch"
+    echo Installing for machine (With Admin Privilege)
 )
 
 :: detect arch
 if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+    echo Your arch: %PROCESSOR_ARCHITECTURE%
     set "file=tagfetch_windows_x86_64.exe"
 ) else (
     echo Unsupported arch: %PROCESSOR_ARCHITECTURE%
@@ -22,6 +25,7 @@ if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
 :: create dest dir
 if not exist "%dest%" mkdir "%dest%"
 
+echo Downloading TagFetch
 :: get download url from latest release
 for /f "delims=" %%u in ('powershell -command "&{$r=Invoke-RestMethod 'https://api.github.com/repos/elitrycraft/tagfetch/releases/latest'; foreach($a in $r.assets){if($a.name -eq '%file%'){$a.browser_download_url}}}"') do set "url=%%u"
 
