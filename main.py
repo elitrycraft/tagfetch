@@ -279,7 +279,9 @@ hashtag = rf"""
 if len(sys.argv) < 2 or not sys.argv[1]:
     if platform.system() == "Windows" and platform.version().startswith("10.0.2"):
         target = windows_eleven
-    elif platform.system() == "Windows" and platform.version().startswith("10.0.1"):
+    elif platform.system() == "Windows" and platform.version().startswith("10.0.26"):
+        target = windows_eleven
+    elif platform.system() == "Windows" and platform.version().startswith("10.0.19"):
         target = windows
     elif platform.system() == "Linux":
         target = linux
@@ -305,6 +307,8 @@ else:
             target = windows_eleven
         elif platform.system() == "Windows" and platform.version().startswith("10.0.1"):
             target = windows
+        elif platform.system() == "Windows" and platform.version().startswith("10.0.26"):
+            target = windows_eleven
         elif platform.system() == "Linux":
             target = linux
         elif platform.system().startswith("Android"):
