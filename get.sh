@@ -1,34 +1,24 @@
-#!/bin/bash
-set -e
+$isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
-echo "Detecting system architecture..."
+$binary = if ($env:PROCESSOR_ARCHITECTURE -eq "ARM64") { "tagfetch_windows_arm64.exe" } else { "tagfetch_windows_x86_64.exe" }
 
-ARCH=$(uname -m)
-if [[ "$ARCH" == "x86_64" ]]; then
-    BINARY="TagFetch_linux_x86_64"
-    URL="https://github.com/elitrycraft/tagfetch/releases/download/1.0.3R/$BINARY"
-elif [[ "$ARCH" == "aarch64" || "$ARCH" == "arm64" ]]; then
-    BINARY="TagFetch_linux_arm64"
-    URL="https://github.com/elitrycraft/tagfetch/releases/download/1.0.3R_ARM/$BINARY"
-else
-    echo "Unsupported architecture: $ARCH"
-    exit 1
-fi
+$release = Invoke-RestMethod https://api.github.com/repos/elitrycraft/tagfetch/releases/latest
+$asset = $release.assets | Where-Object { $_.name -eq $binary }
 
-echo "Detected: $ARCH"
-echo "Installing TagFetch for Linux..."
+if ($isAdmin) {
+    $destDir = "$env:ProgramFiles\TagFetch"
+    $scope = "Machine"
+} else {
+    $destDir = "$env:LOCALAPPDATA\TagFetch"
+    $scope = "User"
+}
 
-if command -v wget &> /dev/null; then
-    echo "Using wget for download..."
-    sudo wget -q --show-progress -O "/usr/bin/tagfetch" "$URL"
-elif command -v curl &> /dev/null; then
-    echo "Using curl for download..."
-    sudo curl -L --progress-bar -o "/usr/bin/tagfetch" "$URL"
-else
-    echo "Neither wget nor curl is installed. Please install one of them."
-    exit 1
-fi
+New-Item -ItemType Directory -Force -Path $destDir | Out-Null
+Invoke-WebRequest -Uri $asset.browser_download_url -OutFile "$destDir\tagfetch.exe"
 
-sudo chmod +x /usr/bin/tagfetch
+$path = [Environment]::GetEnvironmentVariable("Path", $scope)
+if ($path -notlike "*TagFetch*") {
+    [Environment]::SetEnvironmentVariable("Path", "$path;$destDir", $scope)
+}
 
-echo "TagFetch has been successfully installed to /usr/bin/tagfetch!"
+Write-Host "Installed to $destDir. Restart terminal and run: tagfetch"
