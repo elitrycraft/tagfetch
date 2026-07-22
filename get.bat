@@ -1,15 +1,16 @@
 @echo off
 setlocal enabledelayedexpansion
 
-:: check admin
 net session >nul 2>&1
 if %errorlevel% neq 0 (
     echo Requesting administrator privileges...
     powershell -Command "Start-Process '%~f0' -Verb RunAs"
     exit /b
-    set "scope=Machine"
-    set "dest=%ProgramFiles%\TagFetch"
 )
+
+set "scope=Machine"
+set "dest=%ProgramFiles%\TagFetch"
+echo Running with administrator privileges
 
 :: detect arch
 if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
@@ -21,7 +22,11 @@ if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
 )
 
 :: create dest dir
-if not exist "%dest%" mkdir "%dest%"
+if not exist "%dest%" mkdir "%dest%" 2>nul
+if %errorlevel% neq 0 (
+    echo Failed to create directory: %dest%
+    exit /b 1
+)
 
 echo Downloading TagFetch
 :: get download url from latest release
@@ -36,6 +41,7 @@ if "%url%"=="" (
 echo Downloading %file%...
 curl -sfL "%url%" -o "%dest%\tagfetch.exe" 2>nul
 if %errorlevel% neq 0 (
+    echo Trying PowerShell download...
     powershell -command "Invoke-WebRequest -Uri '%url%' -OutFile '%dest%\tagfetch.exe'" >nul
     if !errorlevel! neq 0 (
         echo Download failed
@@ -46,7 +52,7 @@ if %errorlevel% neq 0 (
 echo Adding to PATH
 :: add to PATH
 for /f "delims=" %%p in ('powershell -command "[Environment]::GetEnvironmentVariable('Path','%scope%')"') do set "curpath=%%p"
-echo %curpath% | find /I "%dest%" >nul
+echo !curpath! | find /I "%dest%" >nul
 if %errorlevel% neq 0 (
     powershell -command "[Environment]::SetEnvironmentVariable('Path',$([Environment]::GetEnvironmentVariable('Path','%scope%')+';%dest%'),'%scope%')"
     echo Added to %scope% PATH
