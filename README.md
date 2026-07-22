@@ -1,4 +1,7 @@
+<!-- Google verification (hidden in code block) -->
+```text
 <meta name="google-site-verification" content="_pFMops_2dEJQk7hvsN0Ae9_Ifcy87hBYuk0OFaDafw" />
+```
 <div align="center">
   <h1>TagFetch</h1>
   <h3>Simple Python written system fetcher</h3>
