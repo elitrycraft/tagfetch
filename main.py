@@ -297,6 +297,8 @@ else:
             target = windows_eleven
         elif platform.system() == "Windows" and platform.version().startswith("10.0.19"):
             target = windows
+        elif platform.system() == "Windows" and platform.version().startswith("10.0.26"):
+            target = windows_eleven
         elif platform.system() == "Linux":
             target = linux
         elif platform.system().startswith("Android"):
