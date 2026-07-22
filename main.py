@@ -1,7 +1,7 @@
 from colorama import Fore, Back, Style, init
-import os, socket, time, platform, psutil, subprocess, sys, multiprocessing
+import os, socket, time, platform, psutil, subprocess, sys
 
-version = "1.0.3"
+version = "1.0.4"
 
 init()
 
@@ -62,13 +62,16 @@ def get_shell_version():
     system = platform.system()
     try:
         if system == 'Windows':
-            import winreg
             if 'WT_SESSION' in os.environ:
                 shell_name = 'wt'
-                ver = platform.version()
+                try:
+                    ver = subprocess.check_output(['wt', '--version'], text=True).split()[-1]
+                except:
+                    ver = platform.version()
             elif 'TERM_PROGRAM' in os.environ and os.environ['TERM_PROGRAM'] == 'vscode':
                 shell_name = 'vscode'
-                ver = platform.version()
+                ver = os.environ.get('TERM_PROGRAM_VERSION', 'unknown')
+
             else:
                 shell_name = 'cmd'
                 ver = platform.version()
@@ -146,10 +149,15 @@ def get_gpu():
             lines = [l.strip() for l in out.split('\n') if l.strip()]
             return lines[1] if len(lines) > 1 else 'unknown'
         elif platform.system() == 'Linux':
-            out = subprocess.check_output('lspci | grep -E "VGA|3D"', shell=True, text=True)
-            return out.split(':')[1].strip() if out else 'unknown'
+            try:
+                gpu = subprocess.run(['lspci'], capture_output=True, text=True).stdout
+                for line in gpu.split('\n'):
+                    if 'VGA' in line or '3D' in line:
+                        return line.strip()
+                return 'not found'
+            except:
+                return 'not found'
     except:
-        pass
         return 'unknown'
 
 def get_cpu():
@@ -269,7 +277,7 @@ hashtag = rf"""
 """
 
 if len(sys.argv) < 2 or not sys.argv[1]:
-    if platform.system() == "Windows" and platform.version().startswith("10.0.22"):
+    if platform.system() == "Windows" and platform.version().startswith("10.0.2"):
         target = windows_eleven
     elif platform.system() == "Windows" and platform.version().startswith("10.0.26"):
         target = windows_eleven
@@ -295,9 +303,9 @@ else:
     elif sys.argv[1].lower() == "hashtag":
         target = hashtag
     else:
-        if platform.system() == "Windows" and platform.version().startswith("10.0.22"):
+        if platform.system() == "Windows" and platform.version().startswith("10.0.2"):
             target = windows_eleven
-        elif platform.system() == "Windows" and platform.version().startswith("10.0.19"):
+        elif platform.system() == "Windows" and platform.version().startswith("10.0.1"):
             target = windows
         elif platform.system() == "Windows" and platform.version().startswith("10.0.26"):
             target = windows_eleven
